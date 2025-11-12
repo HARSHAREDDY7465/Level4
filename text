@@ -1,27 +1,11 @@
-"Convert my existing editable subgrid built with HTML, JavaScript, and CSS into a fully functional PowerApps Component Framework (PCF) component. Ensure the following:
-
-Preserve all existing features and behaviors from the current web resource implementation, including:
-
-Inline editing of rows and columns.
-Validation logic for edited fields.
-Dynamic addition and deletion of rows.
-Styling and responsiveness as per the current CSS.
-Any custom events or business logic currently implemented in JavaScript.
-PCF Requirements:
-
-Use the latest PCF standards and best practices.
-Implement the component using TypeScript.
-Include manifest file (ControlManifest.Input.xml) with proper property definitions.
-Support binding to dataset for model-driven apps.
-Handle context updates and re-rendering efficiently.
-Ensure accessibility and cross-browser compatibility.
-Additional Considerations:
-
-Maintain modular structure for easy maintenance.
-Include comments explaining key sections.
-Provide instructions for packaging and deploying the PCF component.
-Ensure compatibility with Dataverse and Dynamics 365 environments.
-Output:
-
-Complete PCF project structure with all required files (index.ts, ControlManifest.Input.xml, CSS, resources).
-Code should be production-ready and optimized for performance."**
+PS C:\Users\HV7\Downloads\pcf_subgrid_component> npx pcf-scripts build
+[12:29:42 pm] [build] Initializing...
+[12:29:42 pm] [build] Validating manifest...
+[12:29:42 pm] [build] Failed:
+[pcf-1014] [Error] Manifest validation problem: instance.manifest.control[0].property[0].$.of-type is not one of enum values: Currency,DateAndTime.DateAndTime,DateAndTime.DateOnly,Decimal,Enum,File,Form.Main,FP,Lookup.Customer,Lookup.Owner,Lookup.PartyList,Lookup.Regarding,Lookup.Simple,Multiple,MultiSelectOptionSet,Object,OptionSet,SingleLine.Email,SingleLine.Phone,SingleLine.Text,SingleLine.TextArea,SingleLine.Ticker,SingleLine.URL,TwoOptions,Whole.None
+[pcf-1014] [Error] Manifest validation problem: instance.manifest.control[0].property[0] is not allowed to have the additional property "description"
+[pcf-1014] [Error] Manifest validation problem: instance.manifest.control[0].property[1] is not allowed to have the additional property "description"
+[pcf-1014] [Error] Manifest validation problem: instance.manifest.control[0].data-set[0] is not allowed to have the additional property "data-set-parameters"
+[pcf-1014] [Error] Manifest validation problem: instance.manifest.control[0].resources[0] is not allowed to have the additional property "style"
+[pcf-1014] [Error] Manifest validation problem: instance.manifest.control[0] is not allowed to have the additional property "control-visibility"
+[pcf-1014] [Error] Manifest validation problem: instance.manifest.control[0] is not allowed to have the additional property "control-surface"
