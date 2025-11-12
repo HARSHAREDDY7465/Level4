@@ -1,0 +1,27 @@
+"Convert my existing editable subgrid built with HTML, JavaScript, and CSS into a fully functional PowerApps Component Framework (PCF) component. Ensure the following:
+
+Preserve all existing features and behaviors from the current web resource implementation, including:
+
+Inline editing of rows and columns.
+Validation logic for edited fields.
+Dynamic addition and deletion of rows.
+Styling and responsiveness as per the current CSS.
+Any custom events or business logic currently implemented in JavaScript.
+PCF Requirements:
+
+Use the latest PCF standards and best practices.
+Implement the component using TypeScript.
+Include manifest file (ControlManifest.Input.xml) with proper property definitions.
+Support binding to dataset for model-driven apps.
+Handle context updates and re-rendering efficiently.
+Ensure accessibility and cross-browser compatibility.
+Additional Considerations:
+
+Maintain modular structure for easy maintenance.
+Include comments explaining key sections.
+Provide instructions for packaging and deploying the PCF component.
+Ensure compatibility with Dataverse and Dynamics 365 environments.
+Output:
+
+Complete PCF project structure with all required files (index.ts, ControlManifest.Input.xml, CSS, resources).
+Code should be production-ready and optimized for performance."**
