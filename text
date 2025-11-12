@@ -1,8 +1,6 @@
 PS C:\Users\HV7\Downloads\pcf_subgrid_component> npx pcf-scripts build
-[12:36:10 pm] [build] Initializing...
-[12:36:10 pm] [build] Validating manifest...
-[12:36:10 pm] [build] Failed:
-[pcf-1014] [Error] Manifest validation problem: instance.manifest.control[0].property[0].$ is not allowed to have the additional property "type"
-[pcf-1014] [Error] Manifest validation problem: instance.manifest.control[0].property[1].$ is not allowed to have the additional property "type"
-[pcf-1014] [Error] Manifest validation problem: instance.manifest.control[0].resources[0] is not allowed to have the additional property "stylesheet"
-PS C:\Users\HV7\Downloads\pcf_subgrid_component> 
+[12:38:31 pm] [build] Initializing...
+[12:38:31 pm] [build] Validating manifest...
+[12:38:31 pm] [build] Failed:
+[pcf-1014] [Error] Manifest validation problem: instance.manifest.control[0].property[0].$.of-type is not one of enum values: Currency,DateAndTime.DateAndTime,DateAndTime.DateOnly,Decimal,Enum,File,Form.Main,FP,Lookup.Customer,Lookup.Owner,Lookup.PartyList,Lookup.Regarding,Lookup.Simple,Multiple,MultiSelectOptionSet,Object,OptionSet,SingleLine.Email,SingleLine.Phone,SingleLine.Text,SingleLine.TextArea,SingleLine.Ticker,SingleLine.URL,TwoOptions,Whole.None
+[pcf-1014] [Error] Manifest validation problem: instance.manifest.control[0].resources[0] is not allowed to have the additional property "style"
