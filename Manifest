@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest>
-  <control 
+  <control
     namespace="Niq.SubGrid"
     constructor="SubGridControl"
     version="1.0.0"
@@ -13,14 +13,14 @@
     </resources>
 
     <!-- Dataset Binding -->
-    <property 
+    <property
       name="dataset"
       display-name-key="Dataset"
       of-type="DataSet"
       usage="bound" />
 
     <!-- Optional Context ID -->
-    <property 
+    <property
       name="contextId"
       display-name-key="ContextId"
       of-type="SingleLine.Text"
