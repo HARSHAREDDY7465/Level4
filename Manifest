@@ -9,21 +9,21 @@
 
     <resources>
       <code path="src/index.ts" order="1" />
-      <stylesheet path="styles/oppstylereturns.css" order="2" />
+      <style path="styles/oppstylereturns.css" order="2" />
     </resources>
 
     <!-- Dataset Binding -->
     <property 
       name="dataset"
       display-name-key="Dataset"
-      type="DataSet"
+      of-type="DataSet"
       usage="bound" />
 
     <!-- Optional Context ID -->
     <property 
       name="contextId"
       display-name-key="ContextId"
-      type="SingleLine.Text"
+      of-type="SingleLine.Text"
       usage="input" />
 
     <!-- Web API permission -->
