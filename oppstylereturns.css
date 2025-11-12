@@ -1,0 +1,377 @@
+/* Untitled-1.css
+   Full stylesheet with left-clipping fixes, OptionSet/boolean styles, integrated
+   column-resize styles, and added textbox / textarea editing styles per your request.
+   Replace your existing CSS with this file and hard-refresh the page (Ctrl/Cmd+F5).
+*/
+
+/* Root variables */
+:root{
+  --crm-bg: #f3f6fa;
+  --crm-card-bg: #ffffff;
+  --crm-border: #d2dae6;
+  --crm-accent: #0078d4;
+  --crm-muted: #6b7890;
+  --crm-header-bg: #f7f9fb;
+  --crm-child-header-bg: #f2f5f9;
+  --crm-row-hover: #f1f7fd;
+  --crm-selected: #dbeefb;
+  --crm-font: "Segoe UI", Arial, sans-serif;
+
+  /* indent per level - adjust to taste */
+  --indent-step: 28px;
+
+  /* reserved area for left controls (checkbox + chevron) */
+  --left-control-width: 56px;
+
+  /* small extra gap so text doesn't butt up to the icon */
+  --name-extra-gap: 8px;
+}
+
+/* Base/layout */
+* { box-sizing: border-box; }
+
+body {
+  background: var(--crm-bg);
+  font-family: var(--crm-font);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  margin: 0;
+  color: #213244;
+}
+.crm-grid-card {
+  background: var(--crm-card-bg);
+  border-radius: 6px;
+  border: 1px solid var(--crm-border);
+  overflow: hidden;
+  box-shadow: 0 1px 0 rgba(16,24,40,0.02);
+  font-size: 14px;
+}
+.crm-grid-commandbar{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:10px 14px;
+  border-bottom:1px solid rgba(34,50,78,0.04);
+  background: linear-gradient(180deg, #ffffff 0%, #fbfdff 100%);
+  min-height:56px;
+}
+.crm-grid-title-wrap { display:flex; align-items:center; gap:10px; }
+.crm-grid-icon { color:var(--crm-accent); font-size:1.1rem; }
+.crm-grid-title { font-size:16px; font-weight:600; color:#0f2b45; letter-spacing:0.01em; }
+
+.crm-search-input { min-width:220px; border-radius:3px 0 0 3px; border-right:0; }
+.crm-search-btn { border-radius:0; display:flex; align-items:center; justify-content:center; }
+#clearFilterBtn { border-radius:0 3px 3px 0; }
+
+.crm-grid-table-wrapper{ max-height:520px; overflow:auto; }
+
+.crm-grid {
+  border-collapse: separate;
+  width:100%;
+  white-space:nowrap;
+  /* Allow columns to size to content so long names aren't clipped */
+  table-layout: auto;
+}
+.crm-grid thead tr {
+  background: var(--crm-header-bg);
+  position:sticky;
+  top:0;
+  z-index:4;
+}
+
+/* allow header overflow for sort pill; default td overflow hidden to avoid layout jump,
+   but crm-data-cell will explicitly allow visible overflow/wrapping */
+.crm-grid th { overflow: visible; }
+.crm-grid td { overflow: hidden; }
+
+.crm-grid th, .crm-grid td {
+  vertical-align: middle !important;
+  padding:10px 10px !important;
+  border-bottom:1px solid rgba(34,50,78,0.05);
+  font-size:13px;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+.crm-grid th {
+  font-weight:600;
+  color:#22344f;
+  background:var(--crm-header-bg);
+  border-bottom-width:1px;
+  text-align:left;
+  position:relative;
+  padding-right:56px; /* reserve right space for sort/filter */
+}
+
+/* sort UI */
+.crm-sort-wrap {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--crm-muted);
+  z-index: 6;
+}
+.crm-sort-icon { color:var(--crm-muted); font-size:0.9em; }
+.crm-sort-order {
+  display:inline-block;
+  background: var(--crm-accent);
+  color:#fff;
+  border-radius:1em;
+  font-size:0.7em;
+  padding:0 0.45em;
+  margin-right:2px;
+  vertical-align:middle;
+  line-height:1.6;
+  z-index:7;
+}
+
+.child-grid-header th {
+  background: var(--crm-child-header-bg) !important;
+  font-weight:700;
+  color:#34495e;
+  border-top:1px solid rgba(34,50,78,0.03);
+}
+
+.crm-grid tbody tr { background:var(--crm-card-bg); transition: background 0.12s ease; }
+.crm-grid tbody tr:hover { background: var(--crm-row-hover); }
+.crm-grid tr.selected { background: var(--crm-selected) !important; }
+
+/* Ensure first two columns (select + icon) can move visually without being clipped,
+   and appear above other cells after transform. Reserve a larger width to avoid overlap. */
+.crm-grid td:first-child,
+.crm-grid td:nth-child(2) {
+  overflow: visible;
+  position: relative;
+  z-index: 10;
+  min-width: var(--left-control-width);
+  width: var(--left-control-width);
+}
+
+/* Make the actual data cells allow visible overflow and wrap so long names show.
+   We target crm-data-cell specifically to avoid changing header behavior. */
+.crm-grid td.crm-data-cell {
+  overflow: visible !important;
+  white-space: normal !important;
+  word-break: break-word;
+  z-index: 2;
+  position: relative;
+  background: transparent; /* avoid covering shifted checkbox/icon */
+}
+
+/* Edit box used for inline editing */
+.crm-editbox {
+  display: inline-block;
+  width: 100%;
+  padding: 6px 8px;
+  border: 1px solid #cfd8e3;
+  border-radius: 4px;
+  font-size: 13px;
+  box-sizing: border-box;
+  background: #fff;
+  color: #213244;
+  /* allow user to resize vertically by default; width is governed by cell width */
+  resize: vertical;
+  min-height: 28px;
+  max-height: 400px;
+}
+
+/* When using a textarea variant (multiline) ensure visible grow area */
+textarea.crm-editbox {
+  resize: vertical;
+  min-height: 60px;
+  max-height: 400px;
+  line-height: 1.4;
+}
+
+/* Allow single-line text inputs to be resizable horizontally if desired */
+input.crm-editbox[type="text"], input.crm-editbox[type="number"] {
+  resize: horizontal;
+  min-width: 80px;
+  max-width: 100%;
+}
+
+/* Small / fullwidth variants */
+.crm-editbox.small { max-width: 180px; }
+.crm-editbox.fullwidth { width: 100%; }
+
+/* Focus styles for edit inputs */
+.crm-editbox:focus {
+  outline: 2px solid rgba(13,110,255,0.14);
+  box-shadow: 0 6px 18px rgba(13,110,255,0.06);
+}
+
+/* validation error style for edit inputs */
+.crm-validation-error {
+  border-color: #dc3545 !important;
+  box-shadow: 0 0 0 3px rgba(220,53,69,0.06) !important;
+}
+
+/* OptionSet / Choice / Boolean display styles (restored) */
+/* These style choice/option values when you add the small span or class in JS. */
+.crm-choice-pill {
+  display: inline-block;
+  padding: 3px 8px;
+  border-radius: 12px;
+  background: #eef3ff;
+  color: #0d6efd;
+  font-size: 12px;
+  line-height: 1;
+  vertical-align: middle;
+  margin-right: 6px;
+  white-space: nowrap;
+}
+
+.crm-boolean-yes {
+  display: inline-block;
+  padding: 3px 8px;
+  border-radius: 12px;
+  background: #dbeefb;
+  color: #073b8c;
+  font-size: 12px;
+  line-height: 1;
+  vertical-align: middle;
+  margin-right: 6px;
+}
+
+.crm-boolean-no {
+  display: inline-block;
+  padding: 3px 8px;
+  border-radius: 12px;
+  background: #f1f3f5;
+  color: #6b7890;
+  font-size: 12px;
+  line-height: 1;
+  vertical-align: middle;
+  margin-right: 6px;
+}
+
+/* Lookup dropdown visuals (kept from earlier) */
+.crm-lookup-dropdown {
+  position:fixed !important;
+  min-width:300px;
+  max-width:520px;
+  background:#fff;
+  border:1px solid rgba(34,50,78,0.08);
+  border-radius:6px;
+  box-shadow: 0 8px 24px rgba(16,24,40,0.12);
+  max-height:340px;
+  overflow:auto;
+  z-index:9999;
+}
+.crm-lookup-item { padding:10px 14px; cursor:pointer; border-bottom:1px solid rgba(34,50,78,0.03); }
+.crm-lookup-item:hover { background:#eef6ff; color:var(--crm-accent); }
+.crm-lookup-item.selected { background:#dbeafe; color:#073b8c; font-weight:600; }
+
+/* --- GENERIC INDENTATION: use CSS variable --indent-multiplier set on each TR ---
+   This replaces explicit per-level rules and makes adding/removing levels/columns easier.
+   Each rendered row sets `--indent-multiplier` on the TR to the numeric level (0,1,2,...).
+*/
+
+/* Provide a default multiplier so styles don't break if not set */
+.crm-grid tbody tr { --indent-multiplier: 0; }
+
+/* Move checkbox & arrow area right based on indent multiplier */
+.crm-grid tbody tr td:first-child,
+.crm-grid tbody tr td:nth-child(2) {
+  transform: translateX(calc(var(--indent-step) * var(--indent-multiplier)));
+  transition: transform 0.15s ease;
+}
+
+/* Nudge the first data cell to align with the controls */
+.crm-grid tbody tr td.crm-data-cell:first-of-type {
+  padding-left: calc(6px + var(--indent-step) * var(--indent-multiplier));
+  transition: padding-left 0.15s ease;
+}
+
+/* --- TARGETED OVERRIDES (fix left clipping for "name"-like columns) -----------------
+   Generic substring selector matches "name", "productname", "niq_name", "accountname", etc.
+   It uses the per-row --indent-multiplier so no per-level CSS rules are required.
+*/
+.crm-grid tbody tr td.crm-data-cell[data-colkey*="name"] {
+  padding-left: calc(var(--left-control-width) + var(--name-extra-gap) + var(--indent-step) * var(--indent-multiplier)) !important;
+  box-sizing: border-box !important;
+}
+
+/* Fallback: ensure first visible data cell clears control area */
+.crm-grid tbody tr td.crm-data-cell:first-of-type {
+  box-sizing: border-box !important;
+}
+
+/* For nested independent tables (if any) apply same approach */
+table.nested-grid tbody tr { --indent-multiplier: var(--indent-multiplier, 0); }
+table.nested-grid tbody tr td.crm-data-cell[data-colkey*="name"] {
+  padding-left: calc(var(--left-control-width) + var(--name-extra-gap) + var(--indent-step) * var(--indent-multiplier)) !important;
+  box-sizing: border-box !important;
+}
+
+/* Child header alignment: use the --indent-multiplier variable on the header row if set */
+.child-grid-header {
+  --indent-multiplier: 1;
+}
+.child-grid-header th:nth-child(3)::before {
+  content: "";
+  display: inline-block;
+  width: calc(var(--indent-step) * var(--indent-multiplier));
+  vertical-align: middle;
+  margin-right: 6px;
+}
+
+/* Smooth transitions */
+.crm-grid tbody td { transition: transform 0.15s ease, padding-left 0.15s ease; }
+
+/* --- COLUMN RESIZE styles (integrated) ------------------ */
+/* Adds a thin draggable handle at the right edge of each header (th[data-colkey]). */
+.col-resizer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 8px;
+  height: 100%;
+  cursor: col-resize;
+  z-index: 30;
+  background: transparent;
+}
+
+/* Make sure header cells are positioned to contain the resizer */
+th[data-colkey] { position: relative; }
+
+/* Slight visible area while hovering to aid discoverability */
+th[data-colkey] .col-resizer:hover {
+  background: rgba(0,0,0,0.03);
+  border-left: 1px solid rgba(0,0,0,0.04);
+}
+
+/* When currently resizing, show global resize cursor and disable selection */
+body.resizing-col {
+  cursor: col-resize !important;
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  user-select: none !important;
+}
+
+/* Optional: small visual indicator of which column is being resized */
+th[data-colkey].resizing {
+  box-shadow: inset -6px 0 12px -10px rgba(0,0,0,0.06);
+}
+
+/* Make the resizer keyboard-focusable and visible outline */
+.col-resizer:focus {
+  outline: 2px solid rgba(13,110,255,0.22);
+  outline-offset: -2px;
+}
+
+/* footer */
+.crm-grid-footer { background:var(--crm-header-bg); border-top:1px solid rgba(34,50,78,0.03); padding:8px 12px; font-size:13px; color:var(--crm-muted); display:flex; align-items:center; justify-content:space-between; }
+
+/* responsive tweaks */
+@media (max-width:720px) {
+  .crm-search-input { min-width:120px; }
+  .crm-grid th, .crm-grid td { padding:8px; font-size:12px; }
+  /* reduce reserved left control on small screens */
+  :root { --left-control-width: 44px; }
+}
+
+/* end of file */

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CRM Subgrid (Filter Host & Child Records)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- main stylesheet -->
+  <link rel="stylesheet" href="niq_oppstyle">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body>
+<div class="container my-4">
+  <div class="crm-grid-card shadow">
+    <div class="crm-grid-header d-flex align-items-center">
+      <span class="crm-grid-title" id="crmGridTitle">Child Opportunities</span>
+      <form class="ms-auto d-flex align-items-center gap-2" id="filterForm" autocomplete="off">
+        <input type="text" class="form-control form-control-sm crm-search-input" id="filterInput" placeholder="Filter by name..." style="width: 210px;">
+        <button type="submit" class="btn btn-outline-primary btn-sm"><i class="fa fa-search"></i> Filter</button>
+        <button type="button" class="btn btn-outline-secondary btn-sm" id="clearFilterBtn"><i class="fa fa-times"></i></button>
+      </form>
+    </div>
+    <div class="crm-grid-table-wrapper">
+      <table class="crm-grid table table-sm mb-0" id="crmGrid">
+        <thead>
+          <tr id="crmGridHeadRow">
+            <!-- dynamically rendered -->
+          </tr>
+        </thead>
+        <tbody id="crmGridBody">
+          <!-- rows rendered here -->
+        </tbody>
+      </table>
+    </div>
+    <div class="crm-grid-footer">
+      <span class="crm-grid-rowcount" id="crmGridRowCount"></span>
+      <span id="crmGridError" class="crm-grid-error text-danger"></span>
+    </div>
+  </div>
+</div>
+
+<!-- main single-file script (includes filters, rendering, column resizing, etc.) -->
+<script src="niq_oppscript"></script>
+<!-- alert helper -->
+<script src="https://cdn.jsdelivr.net/gh/noumanqamar450/alertbox@main/version/1.0.2/alertbox.min.js"></script>
+</body>
+</html>
