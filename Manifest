@@ -1,30 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest>
   <control namespace="Niq.SubGrid" constructor="SubGridControl" version="1.0.0" display-name-key="SubGrid.DisplayName" description-key="SubGrid.Description">
+
     <resources>
       <code path="src/index.ts" order="1" />
-      <style path="styles/oppstylereturns.css" order="2" />
+      <stylesheet path="styles/oppstylereturns.css" order="2" />
     </resources>
 
-    <property name="dataset" display-name-key="Dataset" of-type="DataSet" usage="bound">
-      <description>Dataset provided by model-driven app (records to render)</description>
-    </property>
+    <!-- Dataset Property (binds control to a view or subgrid) -->
+    <property name="dataset" display-name-key="Dataset" description-key="Dataset Description" of-type="DataSet" usage="bound" />
 
-    <property name="contextId" display-name-key="ContextId" of-type="SingleLine.Text" usage="input">
-      <description>Current record ID (optional)</description>
-    </property>
+    <!-- Context Id Property (optional input parameter) -->
+    <property name="contextId" display-name-key="ContextId" description-key="Context Id" of-type="SingleLine.Text" usage="input" />
 
-    <data-set name="dataset" display-name-key="Dataset" description-key="Dataset Description">
-      <data-set-parameters>
-        <data-set-parameter name="primaryKey" usage="input" of-type="SingleLine.Text" required="true" />
-      </data-set-parameters>
-    </data-set>
-
+    <!-- Feature usage -->
     <feature-usage>
       <uses-feature name="WebAPI" required="true" />
     </feature-usage>
 
-    <control-visibility>visible</control-visibility>
-    <control-surface type="grid" />
+    <!-- DataSet definition -->
+    <data-set name="dataset" display-name-key="Dataset" description-key="Dataset Description" />
+
   </control>
 </manifest>
