@@ -1,25 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest>
-  <control namespace="Niq.SubGrid" constructor="SubGridControl" version="1.0.0" display-name-key="SubGrid.DisplayName" description-key="SubGrid.Description">
+  <control namespace="Niq.SubGrid"
+            constructor="SubGridControl"
+            version="1.0.0"
+            display-name-key="SubGrid.DisplayName"
+            description-key="SubGrid.Description">
 
     <resources>
       <code path="src/index.ts" order="1" />
       <stylesheet path="styles/oppstylereturns.css" order="2" />
     </resources>
 
-    <!-- Dataset Property (binds control to a view or subgrid) -->
-    <property name="dataset" display-name-key="Dataset" description-key="Dataset Description" of-type="DataSet" usage="bound" />
+    <!-- Dataset Binding -->
+    <property name="dataset"
+              display-name-key="Dataset"
+              type="DataSet"
+              usage="bound" />
 
-    <!-- Context Id Property (optional input parameter) -->
-    <property name="contextId" display-name-key="ContextId" description-key="Context Id" of-type="SingleLine.Text" usage="input" />
+    <!-- Optional Context ID Input -->
+    <property name="contextId"
+              display-name-key="ContextId"
+              type="SingleLine.Text"
+              usage="input" />
 
-    <!-- Feature usage -->
+    <!-- Dataset Definition -->
+    <data-set name="dataset"
+              display-name-key="Dataset"
+              description-key="Dataset Description" />
+
+    <!-- WebAPI permission -->
     <feature-usage>
       <uses-feature name="WebAPI" required="true" />
     </feature-usage>
-
-    <!-- DataSet definition -->
-    <data-set name="dataset" display-name-key="Dataset" description-key="Dataset Description" />
 
   </control>
 </manifest>
